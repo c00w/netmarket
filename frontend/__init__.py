@@ -1,6 +1,6 @@
 import logging, flask, traceback, random
 
-app = flask.Flask('frontend', template_folder='templates', 
+app = flask.Flask('frontend', template_folder='.', 
             static_folder = 'static')
 app.Debug = False
 
@@ -18,8 +18,9 @@ def teardown_request_wrap(exception):
     if exception:
         logging.error(traceback.format_exc()) 
          
-import UploadPage
+import frontend.upload
+import frontend.search
 
 @app.route("/")
 def frontpage():
-    return flask.render_template('index.html')
+    return flask.render_template('templates/index.html')
