@@ -1,7 +1,7 @@
 import flask
 from frontend import app
 
-@app.route("/upload", methods=['GET', 'POST'])
+@app.route("/upload/upload", methods=['GET', 'POST'])
 def UploadPage():
 
     print flask.request.form

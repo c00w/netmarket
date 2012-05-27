@@ -1,0 +1,12 @@
+{% extends "templates/base.html" %}
+
+{% block title %} Create Item {% endblock %}
+
+{% block body %}
+<form method="post" action="/upload/create"> 
+    Name: <input type=text name="name"/> <br>
+    Description:<br> <textarea name="description"></textarea> <br>
+    Cost: <input type=text name="cost"/> <br>
+    <input type=submit value="Upload">
+</form>
+{% endblock %}
