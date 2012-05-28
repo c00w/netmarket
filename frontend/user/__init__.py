@@ -1,7 +1,8 @@
 from frontend import app
-from flaskext.login import LoginManager
+from flask.ext.login import LoginManager
 
 login_manager = LoginManager()
 login_manager.setup_app(app)
 
-import user
+import UserPage
+import User
