@@ -17,7 +17,8 @@ def teardown_request_wrap(exception):
     """
     if exception:
         logging.error(traceback.format_exc()) 
-         
+
+import frontend.user         
 import frontend.upload
 import frontend.search
 
