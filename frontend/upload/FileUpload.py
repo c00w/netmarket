@@ -4,6 +4,4 @@ from frontend import app
 @app.route("/upload/upload", methods=['GET', 'POST'])
 def UploadPage():
 
-    print flask.request.form
-    print flask.request.files
     return flask.render_template('upload/upload.html')
