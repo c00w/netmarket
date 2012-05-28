@@ -12,3 +12,9 @@ def login():
 
 def validate_login_post(header):
     print header
+
+@app.route("/logout")
+@login_required
+def logout():
+    logout_user()
+    return redirect(somewhere)

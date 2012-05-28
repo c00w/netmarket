@@ -8,6 +8,22 @@ def load_user(userid):
         return None
     return User(user)
 
+@login_manager.anonymous_user
+def anon_user():
+    return User(None)
+
 class User():
     def __init__(self, data):
         self.data = data
+
+    def is_active(self):
+        return True
+
+    def is_authenticated(self):
+        return self.data is not None
+
+    def is_anonymous(self):
+        return self.data is None
+
+    def get_id(self):
+        return unicode(self.data)
