@@ -1,6 +1,8 @@
+from frontend import app
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    if validate_log_post(flask.request.form) 
+    if validate_log_post(flask.request.form): 
         # login and validate the user...
         login_user(user)
         flash("Logged in successfully.")

@@ -6,3 +6,4 @@ def upload_create():
     return flask.render_template("upload/create.html")
 
 def handle_post():
+    pass
