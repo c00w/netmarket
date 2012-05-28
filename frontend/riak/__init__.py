@@ -1,6 +1,6 @@
 import riak
 
-client = riak.RiakClient()
+client = riak.RiakClient(port=8091)
 
 def get_bucket(name):
     return client.bucket(name)
