@@ -1,4 +1,5 @@
 from frontend import app
+from flask.ext.login import login_required
 
 @app.route("/login", methods=["GET", "POST"])
 def login():

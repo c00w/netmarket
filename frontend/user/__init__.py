@@ -6,4 +6,4 @@ login_manager.setup_app(app)
 login_manager.login_view = "/login"
 
 import UserPage
-import User
+import UserClass
