@@ -15,6 +15,16 @@ def login():
 def validate_login_post(header):
     print header
 
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    if validate_register_post(flask.request.form):
+        pass
+
+    return flask.render_template("user/register.html")
+
+def validate_register_post(header):
+    pass
+
 @app.route("/logout")
 @login_required
 def logout():
