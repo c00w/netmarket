@@ -1,0 +1,12 @@
+{% extends "templates/base.html" %}
+
+{% block title %} Home {% endblock %}
+
+{% block body %}
+<form method=post action="/login" >
+    Username <input type="text">
+    Password <input type="text">
+    <input type=submit value="Search">
+</form>
+
+{% endblock %}
