@@ -21,7 +21,4 @@ def teardown_request_wrap(exception):
 import frontend.user         
 import frontend.upload
 import frontend.search
-
-@app.route("/")
-def frontpage():
-    return flask.render_template('templates/index.html')
+import frontend.homepage
