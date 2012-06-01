@@ -3,11 +3,11 @@
 {% block title %} Login {% endblock %}
 
 {% block body %}
-<form method=post action="/login" >
-    Username <input type="text"> <br>
-    Password <input type="text"> <br>
-    <input type=submit value="Search">
-    <input type=submit value="Register">
+<form Method=post action="/login" >
+    Username:<input type="text" size=30 name="Username"> <br>
+    Password:<input type="password" size=30 name="Password"> <br>
+    <input type=submit value="Login" onclick="this.name='Method'">
+    <input type=submit value="Register" onclick = "this.name='Method'">
 </form>
 
 {% endblock %}
