@@ -1,5 +1,5 @@
 from frontend.user import login_manager
-import frontend.riak
+import frontend.db
 
 try:
     import simplejson as json
@@ -43,7 +43,7 @@ class User():
 
 @login_manager.user_loader
 def load_user(userid):
-    user = frontend.riak.get('user', str(userid))
+    user = frontend.db.get_item('Users', unicode(userid))
     if user is None:
         return None
     return User(user)

@@ -1,4 +1,4 @@
-from frontend import app, riak
+from frontend import app, db 
 from frontend.page_util import has_fields
 from flask.ext.login import login_required, login_user
 from UserClass import User
@@ -13,7 +13,6 @@ except ImportError:
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    print flask.request.form
     if has_fields(flask.request.form, ["Username", "Password", "Method"]): 
         
         if flask.request.form["Method"] == "Login": 
@@ -32,26 +31,27 @@ def hash_password(password, salt=None):
 def verify_login_user(form):
     username = form['Username']
     password = form['Password']
-    item = riak.get('users', username)
+    item = db.get_item('Users', username)
     if item == None:
         flask.flash("Incorrect Credentials")
         return flask.redirect("/login")
     verify = User(item)
-    if hash_password(password, verify.salt) == verify.hashpass:
+        
+    if hash_password(password, verify.salt)[0] == verify.hashpass:
         login_user(verify)
         return flask.redirect("/")
     else:
         flask.flash("Incorrect Credentials")
         return flask.redirect("/login") 
+
 def register_user(form):
     username = form['Username']
     password = form['Password']
-    item = riak.get('users', username)
+    item = db.get_item('Users', username)
     if item == None:
         password, salt = hash_password(password)
         new = User(username, password, salt)
-        riak.store('users', username, new.json())
-        assert riak.get('users', username) == new
+        db.set_item('Users', username, new.json())
         login_user(new, remember=True) 
         return flask.redirect("/")
     flask.flash("Username already chosen")
