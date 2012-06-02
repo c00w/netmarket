@@ -11,9 +11,12 @@ def __patch():
     if conn == None:
         conn = boto.dynamodb.layer2.Layer2(_access_key, _secret_key) 
 
+def delete_item(table, name, value):
+    conn.delete_item(Item(conn.get_table(table), hash_key = name, attrs={'value':value}))
+
 def set_item(table, name, value):
    __patch()
-   conn.put_item(Item(conn.get_table(table), hash_key = name, attrs={'value':value}))
+   conn.put_item(Item(conn.get_table(table), hash_key = name, attrs={'value':value}), expected_value=False)
 
 def get_item(table, name):
     __patch()
