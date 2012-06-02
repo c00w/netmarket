@@ -8,7 +8,11 @@
     <input type=submit value="Search"> 
 </form>
 <div>
+{% if logged_in %}
+<a href="/settings">Settings</a>
+{% else %}
 <a href="/login">Login</a>
+{% endif %}
 </div>
 
 {% endblock %}

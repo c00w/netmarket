@@ -1,6 +1,6 @@
 import requests
 
-valid_pages = ['/login', '/register']
+valid_pages = ['/login']
 
 def test_loads():
     for page in valid_pages:

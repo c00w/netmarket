@@ -22,3 +22,4 @@ import frontend.user
 import frontend.upload
 import frontend.search
 import frontend.homepage
+import frontend.settings
