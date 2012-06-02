@@ -22,9 +22,6 @@ class User():
         self.salt = json_self['Salt'].decode("hex")
 
     def json(self):
-        print self.username
-        print self.hashpass
-        print self.salt
         return json.dumps({ 'Username':self.username.encode("utf-8"),
                  'Password':self.hashpass.encode("utf-8"),
                  'Salt':self.salt.encode("hex")})
