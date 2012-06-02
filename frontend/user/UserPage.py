@@ -1,5 +1,6 @@
 from frontend import app, db 
 from frontend.page_util import has_fields
+from frontend.user import logged_in
 from flask.ext.login import login_required, login_user
 from UserClass import User
 import flask
@@ -13,6 +14,9 @@ except ImportError:
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
+    if logged_in():
+        return flask.redirect("/")
+
     if has_fields(flask.request.form, ["Username", "Password", "Method"]): 
         
         if flask.request.form["Method"] == "Login": 
@@ -56,16 +60,6 @@ def register_user(form):
         return flask.redirect("/")
     flask.flash("Username already chosen")
     return flask.redirect("/login")
-
-@app.route("/register", methods=["GET", "POST"])
-def register():
-    if validate_register_post(flask.request.form):
-        pass
-
-    return flask.render_template("user/register.html")
-
-def validate_register_post(header):
-    pass
 
 @app.route("/logout")
 @login_required

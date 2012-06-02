@@ -8,9 +8,13 @@ def test_loads():
         assert 'Not Found' not in r.text
         assert 'Error' not in r.text
 
-def test_register():
+def test_register_login():
     username ='123456789123456789testtest'
     r = requests.post('http://127.0.0.1:5000/login', data={'Username':username, 'Password':'pass', 'Method':'Register'})
+    assert 'Invalid' not in r.text
+    assert 'I am' in r.text
+
+    r = requests.post('http://127.0.0.1:5000/login', data = {'Username':username, 'Password':'pass', 'Method':'Login'})
     assert 'Invalid' not in r.text
     assert 'I am' in r.text
 
