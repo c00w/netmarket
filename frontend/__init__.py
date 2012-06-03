@@ -23,3 +23,4 @@ import frontend.upload
 import frontend.search
 import frontend.homepage
 import frontend.settings
+import frontend.files
