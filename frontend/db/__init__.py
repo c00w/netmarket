@@ -14,9 +14,9 @@ def __patch():
 def delete_item(table, name, value):
     conn.delete_item(Item(conn.get_table(table), hash_key = name, attrs={'value':value}))
 
-def set_item(table, name, value):
+def set_item(table, name, value, expected=False):
    __patch()
-   conn.put_item(Item(conn.get_table(table), hash_key = name, attrs={'value':value}), expected_value=False)
+   conn.put_item(Item(conn.get_table(table), hash_key = name, attrs={'value':value}), expected_value=expected)
 
 def get_item(table, name):
     __patch()

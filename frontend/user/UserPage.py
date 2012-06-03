@@ -35,14 +35,13 @@ def hash_password(password, salt=None):
 def verify_login_user(form):
     username = form['Username']
     password = form['Password']
-    item = db.get_item('Users', username)
-    if item == None:
+    user = User.get_user(username) 
+    if user == None:
         flask.flash("Incorrect Credentials")
         return flask.redirect("/login")
-    verify = User(item)
         
-    if hash_password(password, verify.salt)[0] == verify.hashpass:
-        login_user(verify)
+    if hash_password(password, user.salt)[0] == user.hashpass:
+        login_user(user)
         return flask.redirect("/")
     else:
         flask.flash("Incorrect Credentials")
@@ -51,11 +50,11 @@ def verify_login_user(form):
 def register_user(form):
     username = form['Username']
     password = form['Password']
-    item = db.get_item('Users', username)
-    if item == None:
+    user = User.get_user(username)
+    if user == None:
         password, salt = hash_password(password)
         new = User(username, password, salt)
-        db.set_item('Users', username, new.json())
+        new.save_to_db()
         login_user(new, remember=True) 
         return flask.redirect("/")
     flask.flash("Username already chosen")

@@ -7,6 +7,16 @@ except:
     import json
 
 class User():
+    @classmethod
+    def get_user(cls, name):
+        user_json = frontend.db.get_item('Users', name.encode("utf-8"))
+        if user_json is None:
+            return None
+        return User(user_json)
+
+    def save_to_db(self):
+        frontend.db.set_item('Users', self.username.encode("utf-8"), self.json(), self.old_json)
+
     def __init__(self, *args, **kwargs):
         if len(args) == 1:
             self.from_json(args[0])
@@ -14,8 +24,10 @@ class User():
             self.username = args[0]
             self.hashpass = args[1]
             self.salt = args[2]
+            self.old_json = False
 
     def from_json(self, json_self):
+        self.old_json = json_self
         json_self = json.loads(json_self)
         self.username = json_self['Username'].decode("utf-8")
         self.hashpass = json_self['Password'].decode("utf-8")
@@ -40,7 +52,5 @@ class User():
 
 @login_manager.user_loader
 def load_user(userid):
-    user = frontend.db.get_item('Users', unicode(userid))
-    if user is None:
-        return None
-    return User(user)
+    user = User.get_user(userid) 
+    return user
