@@ -24,6 +24,7 @@ class User():
             self.username = args[0]
             self.hashpass = args[1]
             self.salt = args[2]
+            self.files = []
             self.old_json = False
 
     def from_json(self, json_self):
