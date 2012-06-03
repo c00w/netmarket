@@ -31,12 +31,14 @@ class User():
         json_self = json.loads(json_self)
         self.username = json_self['Username'].decode("utf-8")
         self.hashpass = json_self['Password'].decode("utf-8")
+        self.files = json_self.get('Files', [])
         self.salt = json_self['Salt'].decode("hex")
 
     def json(self):
         return json.dumps({ 'Username':self.username.encode("utf-8"),
                  'Password':self.hashpass.encode("utf-8"),
-                 'Salt':self.salt.encode("hex")})
+                 'Salt':self.salt.encode("hex"),
+                 'Files':json.dumps(self.files)})
     
     def is_active(self):
         return True
