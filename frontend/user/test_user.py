@@ -19,6 +19,7 @@ def test_register_login():
     assert 'I am' in r.text
 
     import frontend.db
-    item = frontend.db.get_item('Users', username)
-    frontend.db.delete_item('Users', username, item)
+    from frontend.configuration import USER_BUCKET_NAME
+    item = frontend.db.get_item(USER_BUCKET_NAME, username)
+    frontend.db.delete_item(USER_BUCKET_NAME, username, item)
     

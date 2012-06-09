@@ -1,12 +1,14 @@
+from bcrypt import gensalt, hashpw
+import flask
+import hashlib
+import os
+
+
 from frontend import app, db 
 from frontend.page_util import has_fields
 from frontend.user import logged_in
 from flask.ext.login import login_required, login_user
 from UserClass import User
-import flask
-import hashlib
-import os
-
 try:
     import simplejson as json
 except ImportError:
@@ -26,12 +28,6 @@ def login():
     
     return flask.render_template("user/login.html")
 
-def hash_password(password, salt=None):
-    if salt == None:
-       salt = os.urandom(16)
-    password = password.encode("utf-8") 
-    return hashlib.sha512(hashlib.sha512(password + salt).hexdigest()+salt).hexdigest(), salt 
-
 def verify_login_user(form):
     username = form['Username']
     password = form['Password']
@@ -40,7 +36,7 @@ def verify_login_user(form):
         flask.flash("Incorrect Credentials")
         return flask.redirect("/login")
         
-    if hash_password(password, user.salt)[0] == user.hashpass:
+    if unicode(hashpw(password, user.hashpass)) == user.hashpass:
         login_user(user)
         return flask.redirect("/")
     else:
@@ -52,8 +48,8 @@ def register_user(form):
     password = form['Password']
     user = User.get_user(username)
     if user == None:
-        password, salt = hash_password(password)
-        new = User(username, password, salt)
+        password = unicode(hashpw(password, gensalt(16)))
+        new = User(username, password)
         new.save_to_db()
         login_user(new, remember=True) 
         return flask.redirect("/")

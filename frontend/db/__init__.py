@@ -1,15 +1,15 @@
 import boto.dynamodb.layer2
 from boto.dynamodb.item import Item
 from boto.dynamodb.exceptions import DynamoDBKeyNotFoundError
-conn = None
 
-_access_key ="AKIAISWIGXPF3C2L47LA"
-_secret_key = "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"
+from frontend.configuration import AWS_ACCESS_KEY, AWS_SECRET_KEY
+
+conn = None
 
 def __patch():
     global conn
     if conn == None:
-        conn = boto.dynamodb.layer2.Layer2(_access_key, _secret_key) 
+        conn = boto.dynamodb.layer2.Layer2(AWS_ACCESS_KEY, AWS_SECRET_KEY) 
 
 def delete_item(table, name, value):
     conn.delete_item(Item(conn.get_table(table), hash_key = name, attrs={'value':value}))
