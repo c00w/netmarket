@@ -1,0 +1,6 @@
+Flask
+Flask-Login
+boto
+pytest
+requests
+py-bcrypt
