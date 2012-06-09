@@ -38,6 +38,9 @@ class User():
         return json.dumps({ 'Username':self.username.encode("utf-8"),
                  'Password':self.hashpass.encode("utf-8"),
                  'Files':json.dumps(self.files)})
+
+    def get_files(self):
+        return self.files
     
     def is_active(self):
         return True

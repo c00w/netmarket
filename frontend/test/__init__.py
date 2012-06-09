@@ -9,10 +9,6 @@ def make_login(callback, username=False):
 
     callback(username, 'pass', r.cookies)
 
-    r = requests.post('http://127.0.0.1:5000/login', data = {'Username':username, 'Password':'pass', 'Method':'Login'})
-    assert 'Invalid' not in r.text
-    assert 'I am' in r.text
-
     import frontend.db
     item = frontend.db.get_item(USER_BUCKET_NAME, username)
     frontend.db.delete_item(USER_BUCKET_NAME, username, item)
