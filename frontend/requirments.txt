@@ -4,3 +4,4 @@ boto
 pytest
 requests
 py-bcrypt
+tornado
