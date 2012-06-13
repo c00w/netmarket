@@ -12,5 +12,5 @@ application = Application([
 ])
 
 if __name__ == "__main__":
-    application.listen(5000)
+    application.listen(80)
     IOLoop.instance().start()
