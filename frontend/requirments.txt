@@ -1,7 +1,10 @@
-Flask
-Flask-Login
-boto
-pytest
-requests
-py-bcrypt
-tornado
+Fabric==1.4.2
+Flask==0.8
+Flask-Login==0.1.2
+boto==2.4.1
+py==1.4.8
+py-bcrypt==0.2
+pytest==2.2.4
+requests==0.13.1
+simplejson==2.5.2
+supervisor==3.0a12

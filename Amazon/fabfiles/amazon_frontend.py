@@ -31,10 +31,11 @@ def cleanup():
 def update_repo():
     with cd('netmarket/frontend'):
         run("git pull")
+        sudo("pip install -r requirments.txt") 
 
 def start_server():
-    with cd('netmarket/frontend/serve'):
-        run("./serve_tornado.py &")
+    with cd('netmarket/frontend/'):
+        run("supervisord -c supervisord.conf")
 
 def setup_frontend():
     setup_packages()
