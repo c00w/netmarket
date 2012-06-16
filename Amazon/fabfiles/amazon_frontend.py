@@ -30,6 +30,7 @@ def cleanup():
 
 def update_repo():
     with cd('netmarket/frontend'):
+        run("git reset --hard HEAD")
         run("git pull")
         sudo("pip install -r requirments.txt") 
 
