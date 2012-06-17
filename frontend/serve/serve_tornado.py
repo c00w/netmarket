@@ -1,8 +1,11 @@
+import sys
+from os.path import normpath, join, abspath, dirname
+sys.path.append(normpath(join(abspath(dirname(__file__)), '../../')))
+
 from tornado.wsgi import WSGIContainer
 from tornado.ioloop import IOLoop
 from tornado.web import FallbackHandler, RequestHandler, Application
-import sys
-sys.path.append('../../')
+
 from frontend import app
 
 flask_cont = WSGIContainer(app)

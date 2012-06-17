@@ -36,7 +36,8 @@ def update_repo():
 
 def start_server():
     with cd('netmarket/frontend/'):
-        run("supervisord -c supervisord.conf")
+        sudo('kill -2 `cat /tmp/supervisord.pid`')
+        sudo("supervisord -c supervisord.conf")
 
 def setup_frontend():
     setup_packages()
