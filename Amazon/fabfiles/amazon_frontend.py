@@ -24,6 +24,7 @@ def setup_repo():
     run("git clone https://github.com/c00w/netmarket.git")
     with cd('netmarket/frontend'):
         sudo("pip install -r requirments.txt") 
+        run("pip install -r requirments.txt")
 
 def cleanup():
     sudo("rm *.tar.gz *.tar.bz2 *.tar")
