@@ -1,4 +1,4 @@
-from fabric.api import run, env, sudo, lcd, cd
+from fabric.api import run, env, sudo, lcd, cd, settings
 
 env.key_filename = ["~/code/netmarket/Amazon/Dev-Colin.pem"]
 
@@ -36,7 +36,8 @@ def update_repo():
 
 def start_server():
     with cd('netmarket/frontend/'):
-        sudo('kill -2 `cat /tmp/supervisord.pid`')
+        with settings(warn_only=True):
+            sudo('kill -2 `cat /tmp/supervisord.pid`')
         sudo("supervisord -c supervisord.conf")
 
 def setup_frontend():
