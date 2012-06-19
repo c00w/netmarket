@@ -1,5 +1,5 @@
 import requests
-
+from frontend.test import *
 valid_pages = ['/login']
 
 def test_loads():
@@ -8,18 +8,9 @@ def test_loads():
         assert 'Not Found' not in r.text
         assert 'Error' not in r.text
 
-def test_register_login():
-    username ='123456789123456789testtest'
-    r = requests.post('http://127.0.0.1:5000/login', data={'Username':username, 'Password':'pass', 'Method':'Register'})
+def test_register_login(credentials):
+    username, password, cookies = credentials
+    r = requests.post('http://127.0.0.1:5000/login', data = {'Username':username, 'Password':password, 'Method':'Login'})
     assert 'Invalid' not in r.text
     assert 'I am' in r.text
 
-    r = requests.post('http://127.0.0.1:5000/login', data = {'Username':username, 'Password':'pass', 'Method':'Login'})
-    assert 'Invalid' not in r.text
-    assert 'I am' in r.text
-
-    import frontend.db
-    from frontend.configuration import USER_BUCKET_NAME
-    item = frontend.db.get_item(USER_BUCKET_NAME, username)
-    frontend.db.delete_item(USER_BUCKET_NAME, username, item)
-    
