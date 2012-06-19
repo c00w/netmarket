@@ -3,7 +3,6 @@ import flask
 import hashlib
 import os
 
-
 from frontend import app, db 
 from frontend.page_util import has_fields
 from frontend.user import logged_in
@@ -48,7 +47,7 @@ def register_user(form):
     password = form['Password']
     user = User.get_user(username)
     if user == None:
-        password = unicode(hashpw(password, gensalt(16)))
+        password = unicode(hashpw(password, gensalt()))
         new = User(username, password)
         new.save_to_db()
         login_user(new, remember=True) 
