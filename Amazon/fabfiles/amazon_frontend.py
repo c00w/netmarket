@@ -15,10 +15,8 @@ def activate_virtualenv():
         run(". activate")
     
 def setup_virtualenv():
-    run("wget https://bitbucket.org/pypy/pypy/downloads/pypy-1.9-linux64.tar.bz2")
-    run("tar -xvf pypy-1.9-linux64.tar.bz2")
     sudo("pip install virtualenv")
-    run("virtualenv -p pypy-1.9/bin/pypy env")
+    run("virtualenv env")
 
 def setup_repo():
     run("git clone https://github.com/c00w/netmarket.git")
