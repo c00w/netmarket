@@ -1,6 +1,7 @@
 from bcrypt import gensalt, hashpw
 import flask
 import hashlib
+from time import time
 import os
 
 from frontend import app, db 
@@ -47,7 +48,10 @@ def register_user(form):
     password = form['Password']
     user = User.get_user(username)
     if user == None:
-        password = unicode(hashpw(password, gensalt(4)))
+        t = time()
+        password = unicode(hashpw(password, gensalt(8)))
+        e = time()
+        print 'Hashpw Time Elapsed %s' % str(e-t)
         new = User(username, password)
         new.save_to_db()
         login_user(new, remember=True) 
