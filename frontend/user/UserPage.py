@@ -47,7 +47,7 @@ def register_user(form):
     password = form['Password']
     user = User.get_user(username)
     if user == None:
-        password = unicode(hashpw(password, gensalt(8)))
+        password = unicode(hashpw(password, gensalt(4)))
         new = User(username, password)
         new.save_to_db()
         login_user(new, remember=True) 

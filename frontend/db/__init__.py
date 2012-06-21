@@ -1,6 +1,7 @@
 import boto.dynamodb.layer2
 from boto.dynamodb.item import Item
 from boto.dynamodb.exceptions import DynamoDBKeyNotFoundError
+from time import time
 
 from frontend.configuration import AWS_ACCESS_KEY, AWS_SECRET_KEY
 
@@ -21,7 +22,10 @@ def set_item(table, name, value, expected=False):
 def get_item(table, name):
     __patch()
     try:
+        t = time()
         item = conn.get_item(conn.get_table(table), name)
+        e = time()
+        print 'Get Time Elapsed %s' % str(e-t)
     except DynamoDBKeyNotFoundError:
         return None
     return item['value']
