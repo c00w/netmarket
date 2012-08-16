@@ -1,31 +1,23 @@
-import boto.dynamodb.layer2
-from boto.dynamodb.item import Item
-from boto.dynamodb.exceptions import DynamoDBKeyNotFoundError
 from time import time
-
-from frontend.configuration import AWS_ACCESS_KEY, AWS_SECRET_KEY
+from redis import StrictRedis
 
 conn = None
 
 def __patch():
     global conn
     if conn == None:
-        conn = boto.dynamodb.layer2.Layer2(AWS_ACCESS_KEY, AWS_SECRET_KEY) 
+        conn = StrictRedis(host='localhost', port=6379, db=0)
+
+def __key(table, name):
+    return '__'.join([table, name])
 
 def delete_item(table, name, value):
-    conn.delete_item(Item(conn.get_table(table), hash_key = name, attrs={'value':value}))
+    return conn.delete(__key(table, name))
 
 def set_item(table, name, value, expected=False):
    __patch()
-   conn.put_item(Item(conn.get_table(table), hash_key = name, attrs={'value':value}), expected_value=expected)
+   return conn.set(__key(table, name), value)
 
 def get_item(table, name):
     __patch()
-    try:
-        t = time()
-        item = conn.get_item(conn.get_table(table), name)
-        e = time()
-        print 'Get Time Elapsed %s' % str(e-t)
-    except DynamoDBKeyNotFoundError:
-        return None
-    return item['value']
+    return conn.get(__key(table, name))
