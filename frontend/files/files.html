@@ -2,6 +2,16 @@
 
 {% block title %} Files {% endblock %}
 
+{% block js %}
+    $(window).ready( function() {
+        $(body).append($('<div id=files>'));
+        $.get('/files/list', {}, function(data, status) {
+            console.log(data);
+            console.log(data[1]);
+        });
+    });
+{% endblock %}
+
 {% block body %}
 Files page
 {% endblock %}
