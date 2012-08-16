@@ -25,13 +25,14 @@ def upload_create():
         return flask.redirect('/upload/upload/%s' % file_id)
     return flask.render_template("upload/create.html")
 
-@app.route("/upload/upload/<int:file_id>")
+@app.route("/upload/upload/<int:file_id>", methods=['GET', 'POST'])
 @login_required
 def upload_upload(file_id):
+    print flask.request.files
     if 'data' in flask.request.files:
         print flask.request.files['data']
         key = str(file_id)
         save_file(key, flask.request.files['data'])
         return flask.redirect('/files')
 
-    return flask.render_template("upload/upload.html")
+    return flask.render_template("upload/upload.html", file_id=file_id)

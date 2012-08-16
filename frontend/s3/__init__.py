@@ -8,5 +8,5 @@ conn = S3Connection(_access_key, _secret_key)
 bucket = conn.create_bucket('markoi')
 
 def save_file(key, fp):
-    Key(bucket, key)
-    Key.set_contents_from_file(fp)    
+    k = Key(bucket, key)
+    k.set_contents_from_file(fp)    
