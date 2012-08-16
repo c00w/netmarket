@@ -2,6 +2,7 @@ from frontend import app
 from frontend.configuration import FILE_BUCKET_NAME
 from frontend.db import set_item, get_item
 from frontend.page_util import has_fields
+from frontend.s3 import save_file
 import flask
 from flask.ext.login import login_required, current_user
 import hashlib
@@ -27,5 +28,10 @@ def upload_create():
 @app.route("/upload/upload/<int:file_id>")
 @login_required
 def upload_upload(file_id):
-    print flask.request.form
+    if 'data' in flask.request.files:
+        print flask.request.files['data']
+        key = str(file_id)
+        save_file(key, flask.request.files['data'])
+        return flask.redirect('/files')
+
     return flask.render_template("upload/upload.html")
