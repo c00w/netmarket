@@ -19,10 +19,10 @@ def upload_create():
         m = hashlib.md5()
         m.update(name + category + description + cost + current_user.username)
         file_id = int(m.hexdigest(), 16)
-        set_item(FILE_BUCKET_NAME, file_id, json.dumps({'user':current_user.username, 'file_id': file_id, 'name':name, 'category':category, 'description':description, 'cost':cost}))
+        set_item(FILE_BUCKET_NAME, str(file_id), json.dumps({'user':current_user.username, 'file_id': file_id, 'name':name, 'category':category, 'description':description, 'cost':cost}))
         current_user.files.append(file_id)
-        current_user.save()
-        return flask.redirect('/upload/upload/%s', file_id)
+        current_user.save_to_db()
+        return flask.redirect('/upload/upload/%s' % file_id)
     return flask.render_template("upload/create.html")
 
 @login_required

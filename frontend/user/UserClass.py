@@ -33,11 +33,12 @@ class User():
         self.username = json_self['Username'].decode("utf-8")
         self.hashpass = json_self['Password'].decode("utf-8")
         self.files = json_self.get('Files', [])
+        print self.files, type(self.files)
 
     def json(self):
         return json.dumps({ 'Username':self.username.encode("utf-8"),
                  'Password':self.hashpass.encode("utf-8"),
-                 'Files':json.dumps(self.files)})
+                 'Files':self.files})
 
     def get_files(self):
         return self.files
