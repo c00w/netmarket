@@ -7,10 +7,9 @@ from flask.ext.login import login_required, current_user
 import hashlib
 import simplejson as json
 
-@login_required
 @app.route("/upload/create", methods=['GET', 'POST'])
+@login_required
 def upload_create():
-    print flask.request.form
     if has_fields(flask.request.form, ('Name', 'Category', 'Description', 'Cost')):
         name = flask.request.form['Name']
         category = flask.request.form['Category']
@@ -25,8 +24,8 @@ def upload_create():
         return flask.redirect('/upload/upload/%s' % file_id)
     return flask.render_template("upload/create.html")
 
-@login_required
 @app.route("/upload/upload/<int:file_id>")
+@login_required
 def upload_upload(file_id):
     print flask.request.form
     return flask.render_template("upload/upload.html")
