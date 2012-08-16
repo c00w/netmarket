@@ -10,3 +10,7 @@ bucket = conn.create_bucket('markoi')
 def save_file(key, fp):
     k = Key(bucket, key)
     k.set_contents_from_file(fp)    
+
+def get_access_url(key):
+    k = Key(bucket, key)
+    return k.generate_url(600)
